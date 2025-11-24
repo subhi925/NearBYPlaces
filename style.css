@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 25px;
+}
+#navbar {
+  width: 100%;
+  background-color: rgb(112, 195, 195);
+  margin: 1px;
+  box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* הופך את התפריט לשורה יפה */
+#navbar ul {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  list-style-type: none;
+}
+
+#navbar ul li {
+  padding: 8px 20px;
+}
+#log {
+  margin: 4px;
+  background-color: rgb(155, 200, 216);
+  position: absolute;
+  right: 10px;
+  border: 1px solid bisque;
+  border-radius: 20px;
+}
+#row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#side {
+  flex: 25%;
+  background-color: rgb(235, 236, 236);
+  padding: 20px;
+  margin-top: 2px;
+  border-radius: 20px;
+}
+
+#main {
+  background-color: lightblue;
+  flex: 75%;
+  padding: 20px;
+  border-radius: 20px;
+}
+.sidebar {
+  display: flex;
+  cursor: pointer;
+}
+.titleonsidebarimage {
+  border: 1px solid black;
+}
+#maincontant {
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.home-cards {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.home-card {
+  background: white;
+  padding: 20px;
+  width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.home-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+@media screen and (max-width: 500px) {
+  #navbar {
+    flex-direction: column;
+  }
+  .home-cards {
+    display:flex;
+    flex-direction: column;
+  }
+  body{
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #row {
+    flex-direction: column;
+  }
+
+}
