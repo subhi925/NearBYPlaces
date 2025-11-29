@@ -1,45 +1,62 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
 
-$apiKey = "YOUR_API_KEY";
+if (!isset($_POST['lat']) || !isset($_POST['lon'])) {
+    echo json_encode([
+        'status' => 'Failed',
+        'msg' => 'Missing parameters: lat or lon'
+    ]);
+    exit;
+}
 
-$lat = 32.12345;
-$lng = 35.12345;
+$lat = $_POST['lat'];
+$lon = $_POST['lon'];
 
-$url = "https://places.googleapis.com/v1/places:searchNearby";
 
-$data = [
-    "includedTypes" => ["restaurant"],
-    "maxResultCount" => 10,
-    "locationRestriction" => [
-        "circle" => [
-            "center" => [
-                "latitude" => $lat,
-                "longitude" => $lng
-            ],
-            "radius" => 5000
-        ]
-    ]
-];
 
-$ch = curl_init($url);
+$curl = curl_init();
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
-
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "Content-Type: application/json",
-    "X-Goog-Api-Key: $apiKey",
-    "X-Goog-FieldMask: places.displayName,places.location,places.rating"
+curl_setopt_array($curl, [
+    CURLOPT_URL => "https://weatherapi-com.p.rapidapi.com/current.json?q=$lat,$lon",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTPHEADER => [
+        "x-rapidapi-host: weatherapi-com.p.rapidapi.com",
+        "x-rapidapi-key: 939e5fb587msh0f94bc1bfde9e8ep14e9fbjsne1e56a937b70"
+    ],
 ]);
 
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+$response = curl_exec($curl);
+$err = curl_error($curl);
+curl_close($curl);
 
-$response = curl_exec($ch);
-curl_close($ch);
+if ($err) {
+    echo json_encode([
+        'status' => 'Failed',
+        'msg' => 'Curl error',
+        'error' => $err
+    ]);
+} else {
+    // ההחזרה כאן כבר JSON מוכן מה־API → אין צורך ב-encode נוסף
+    echo $response;
+}
 
-$result = json_decode($response, true);
 
-echo "<pre>";
-print_r($result);
-echo "</pre>";
-?>
+/**
+ * Initialize cURL session
+ * %$ch = curl_init();
+ *
+ * //Set basic optins
+ * curl_setopt($ch, CURLPT_URL,'https://api.example.com');
+ * curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ * //Execute&Close
+ * //Exexute requset
+ * $response = curl_exec($ch);
+ *
+ * //Check for errors
+ * $err = curl_error($ch);
+ *
+ * //Close session
+ * curl_close($ch);
+ */
