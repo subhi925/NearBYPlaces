@@ -1,4 +1,4 @@
-﻿# Places Near Me 🌍
+9﻿# Places Near Me 🌍
 
 A single-page application (SPA) to discover attractions, activities, and services around you.
 
@@ -63,7 +63,4 @@ Do not commit real API keys. `places.php` currently calls RapidAPI — replace t
 
 
 ```
-
-## Security note
-
-Do not commit real API keys. `places.php` currently calls RapidAPI — replace
+
