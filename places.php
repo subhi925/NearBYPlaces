@@ -60,3 +60,4 @@ if ($err) {
  * //Close session
  * curl_close($ch);
  */
+?>
